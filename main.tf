@@ -1,11 +1,3 @@
-module "services" {
-  source = "./ec2"
-
-  instance_ami  = data.aws_ssm_parameter.ami_id.value
-  instance_type = "t2.micro"
-  instance_name = "TerraformProvisionDemo"
-}
-
 terraform {
   required_providers {
     aws = {
@@ -22,6 +14,10 @@ provider "aws" {
   region  = "ap-northeast-1" // Tokyo
 }
 
-data "aws_ssm_parameter" "ami_id" {
-  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+module "services" {
+  source = "./ec2"
+
+  instance_ami  = "ami-0e60b6d05dc38ff11"
+  instance_type = "t2.micro"
+  instance_name = "TerraformProvisionDemo"
 }
